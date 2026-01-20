@@ -195,32 +195,53 @@
         }
 
         /* Chart specific sizes for better responsiveness */
-        #overallChartContainer {
-            height: 320px;
-            min-height: 320px;
-        }
-
+		#overallChartContainer,
+		#validasiChartContainer {
+			height: 320px;
+			display: flex;
+			flex-direction: column;
+		}
+		#overallChartContainer .chart-wrapper,
+		#validasiChartContainer .chart-wrapper {
+			flex: 1;
+			height: 220px;
+			max-height: 220px;
+			padding: 0;
+		}
+		#overallChartContainer .chart-header,
+		#validasiChartContainer .chart-header {
+			min-height: 80px;
+		}
+		#overallChart,
+		#validasiChart {
+			width: 100% !important;
+			height: 100% !important;
+		}
         #lembagaChartContainer {
             height: 320px;
             min-height: 320px;
         }
 
         /* Responsive chart adjustments */
-        @media (max-width: 768px) {
-            #overallChartContainer,
-            #lembagaChartContainer {
-                height: 280px;
-                min-height: 280px;
-            }
-        }
+		@media (max-width: 768px) {
+			#overallChartContainer,
+			#validasiChartContainer,
+			#lembagaChartContainer {
+				height: 280px;
+				min-height: 280px;
+			}
+		}
 
-        @media (max-width: 576px) {
-            #overallChartContainer,
-            #lembagaChartContainer {
-                height: 250px;
-                min-height: 250px;
-            }
-        }
+
+		@media (max-width: 576px) {
+			#overallChartContainer,
+			#validasiChartContainer,
+			#lembagaChartContainer {
+				height: 250px;
+				min-height: 250px;
+			}
+		}
+
 
         /* --- Table Section --- */
         .table-card {
@@ -649,48 +670,72 @@
         
         <!-- Charts Row -->
         <div class="row g-4 mb-4">
-            <!-- Overall Progress Chart -->
-            <div class="col-lg-6 col-md-12">
-                <div class="custom-card">
-                    <div class="chart-container" id="overallChartContainer">
-                        <div class="chart-header">
-                            <h6 class="chart-title">
-                                <i class="fas fa-chart-pie me-2 text-primary"></i>
-                                Progres Keseluruhan
-                            </h6>
-                            <div class="text-center">
-                                <div class="display-6 fw-bold text-primary mb-0" id="totalPercent">0%</div>
-                                <small class="text-muted">LEMBAGA SELESAI</small>
-                            </div>
-                        </div>
-                        <div class="chart-wrapper">
-                            <canvas id="overallChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Per Jenjang Chart -->
-            <div class="col-lg-6 col-md-12">
-                <div class="custom-card">
-                    <div class="chart-container" id="lembagaChartContainer">
-                        <div class="chart-header">
-                            <h6 class="chart-title">
-                                <i class="fas fa-chart-bar me-2 text-primary"></i>
-                                Progres per Jenjang
-                            </h6>
-                            <div class="small text-muted">
-                                <i class="fas fa-info-circle me-1"></i>
-                                <span id="totalLembagaText">Total: 0 Lembaga</span>
-                            </div>
-                        </div>
-                        <div class="chart-wrapper">
-                            <canvas id="lembagaChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+			<!-- Progres Keseluruhan -->
+			<div class="col-lg-3 col-md-12">
+				<div class="custom-card">
+					<div class="chart-container" id="overallChartContainer">
+						<div class="chart-header">
+							<h6 class="chart-title">
+								<i class="fas fa-chart-pie me-2 text-primary"></i>
+								Progres Keseluruhan
+							</h6>
+							<div class="text-center">
+								<div class="display-6 fw-bold text-primary mb-0" id="totalPercent">0%</div>
+								<small class="text-muted">LEMBAGA SELESAI</small>
+							</div>
+						</div>
+						<div class="chart-wrapper">
+							<canvas id="overallChart"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Progres Validasi (BARU) -->
+			<div class="col-lg-3 col-md-12">
+				<div class="custom-card">
+					<div class="chart-container" id="validasiChartContainer">
+						<div class="chart-header">
+							<h6 class="chart-title">
+								<i class="fas fa-check-double me-2 text-primary"></i>
+								Progres Validasi
+							</h6>
+							<div class="text-center">
+								<div class="display-6 fw-bold text-primary mb-0" id="validasiPercent">0%</div>
+								<small class="text-muted">DATA TERVALIDASI</small>
+							</div>
+						</div>
+						<div class="chart-wrapper">
+							<canvas id="validasiChart"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Progres per Jenjang -->
+			<div class="col-lg-6 col-md-12">
+				<div class="custom-card">
+					<div class="chart-container" id="lembagaChartContainer">
+						<div class="chart-header">
+							<h6 class="chart-title">
+								<i class="fas fa-chart-bar me-2 text-primary"></i>
+								Progres per Jenjang
+							</h6>
+							<div class="small text-muted">
+								<i class="fas fa-info-circle me-1"></i>
+								<span id="totalLembagaText">Total: 0 Lembaga</span>
+							</div>
+						</div>
+						<div class="chart-wrapper">
+							<canvas id="lembagaChart"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
 
         <!-- Stats Cards Grid -->
         <div class="row g-3 mb-4" id="statsCards">
@@ -791,6 +836,7 @@
         let dataTable = null;
         let overallChart = null;
         let lembagaChart = null;
+		let validasiChart = null;
         let allData = [];
 
         // ================= HELPERS =================
@@ -864,10 +910,13 @@
 
                 // Calculate statistics
                 const stats = calculateStats(allData);
+				const validasiStats = calculateValidasiStats(allData);
+
                 
                 // Render all components
                 renderCards(stats.perJenjang);
                 renderOverallChart(stats.sukses, stats.belum);
+				renderValidasiChart(validasiStats.valid, validasiStats.belum);
                 renderLembagaChart(stats.perJenjang);
                 initTable(allData);
                 
@@ -1140,6 +1189,72 @@
                 }
             });
         }
+		function calculateValidasiStats(data) {
+			const total = data.length;
+			const valid = data.filter(d => {
+				const v = d.validasi.toLowerCase();
+				return v.includes('valid') || v.includes('benar') || v.includes('ok');
+			}).length;
+
+			const belum = total - valid;
+
+			return { total, valid, belum };
+		}
+		function renderValidasiChart(valid, belum) {
+			const ctx = document.getElementById('validasiChart');
+			const total = valid + belum;
+			const pct = total > 0 ? Math.round((valid / total) * 100) : 0;
+
+			document.getElementById('validasiPercent').innerText = pct + '%';
+
+			if (validasiChart) validasiChart.destroy();
+
+			validasiChart = new Chart(ctx, {
+				type: 'doughnut',
+				data: {
+					labels: ['Sudah Validasi', 'Belum / Proses'],
+					datasets: [{
+						data: [valid, belum],
+						backgroundColor: ['#3b82f6', '#f59e0b'],
+						borderWidth: 0,
+						hoverOffset: 10,
+						borderRadius: 8
+					}]
+				},
+				options: {
+					responsive: true,
+					maintainAspectRatio: false,
+					cutout: '70%',
+							layout: {
+								padding: {
+									top: 10,
+									bottom: 20,
+									left: 10,
+									right: 10
+								}
+							},
+					plugins: {
+						legend: {
+							position: 'bottom',
+							labels: {
+								usePointStyle: true,
+								padding: 20,
+								font: { size: 12 }
+							}
+						},
+						tooltip: {
+							callbacks: {
+								label: (ctx) => {
+									const v = ctx.raw;
+									const p = Math.round((v / total) * 100);
+									return ` ${ctx.label}: ${v} (${p}%)`;
+								}
+							}
+						}
+					}
+				}
+			});
+		}
 
         function initTable(data) {
             const tbody = document.querySelector('#madrasahTable tbody');
