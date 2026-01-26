@@ -37,6 +37,10 @@
             --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
             --bg-body: #f3f4f6;
             --text-primary: #1f2937;
+            --color-high: #10b981;
+            --color-medium: #f59e0b;
+            --color-low: #ef4444;
+            --color-complete: #035c41;
         }
 
         * {
@@ -77,16 +81,17 @@
 			font-size: clamp(1.3rem, 3.5vw, 1.6rem);
 			letter-spacing: -0.025em;
 			line-height: 1.1;
-			margin-bottom: 0.3rem;
+			margin-bottom: 0.5rem;
 		}
 
 		.header-subtitle {
-			opacity: 0.9;
-			font-weight: 500;
-			font-size: clamp(0.85rem, 1.8vw, 0.95rem);
-			margin-bottom: 0.5rem;
+			opacity: 0.95;
+			font-weight: 600;
+			font-size: clamp(1rem, 2.2vw, 1.15rem);
 			line-height: 1.2;
+			margin-bottom: -0.5rem;
 		}
+
 		.badge-timestamp {
 			background: rgba(255, 255, 255, 0.15) !important;
 			border: 1px solid rgba(255, 255, 255, 0.2) !important;
@@ -197,7 +202,7 @@
         /* Chart specific sizes for better responsiveness */
 		#overallChartContainer,
 		#validasiChartContainer {
-			height: 320px;
+			height: 375px;
 			display: flex;
 			flex-direction: column;
 		}
@@ -217,200 +222,305 @@
 			width: 100% !important;
 			height: 100% !important;
 		}
-        #kecamatanChartContainer {
-            height: 320px;
-            min-height: 320px;
-            overflow: hidden; 
-        }
-
-        /* --- STYLES FOR KECAMATAN GRID (UPDATED) --- */
-        .kecamatan-grid-wrapper {
-            overflow-y: auto;
-            height: 100%;
-            padding-right: 5px;
-            /* Scroll smooth */
-            scroll-behavior: smooth;
-        }
-        
-        .kecamatan-grid-wrapper::-webkit-scrollbar {
-            width: 6px;
-        }
-        .kecamatan-grid-wrapper::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 4px;
-        }
-        .kecamatan-grid-wrapper::-webkit-scrollbar-thumb {
-            background: #c1c1c1;
-            border-radius: 4px;
-        }
-        .kecamatan-grid-wrapper::-webkit-scrollbar-thumb:hover {
-            background: #a8a8a8;
-        }
-
-        .kecamatan-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 3 Kolom */
-            gap: 8px; /* Jarak antar item sedikit diperlebar */
-            padding-bottom: 40px; /* PENTING: Padding bawah agar scroll tidak mentok */
-        }
-
-		.kecamatan-item {
-			padding: 10px 12px;
-			border-radius: 8px;
-			font-size: 0.8rem;
-			border: 1px solid rgba(0,0,0,0.03);
-			display: flex;
-			align-items: center;
-			justify-content: space-between; /* KIRI vs KANAN */
-			gap: 10px;
-			line-height: 1.3;
-		}
-
-        .kec-right {
-			display: flex;
-			align-items: center;
-			gap: 8px;
-			white-space: nowrap;
-		}
-
-		.kec-count {
-			font-weight: 600;
-			opacity: 0.85;
-		}
-
-		.kec-percent {
-			font-weight: 800;
-			padding: 2px 8px;
-			border-radius: 6px;
-			font-size: 0.75rem;
-		}
-
-        .kecamatan-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.06);
-            filter: brightness(0.98);
-        }
-
-		.kec-name {
-			font-weight: 800;
-			text-transform: uppercase;
-			white-space: nowrap;
-			overflow: hidden;
-			text-overflow: ellipsis;
-			font-size: 0.8rem;
-			border: none;        /* hilangkan garis bawah */
-			padding: 0;
-			margin: 0;
-		}
-
-
-        .kec-stat-row {
+        #kecamatanTableContainer {
+            height: 375px;
+            min-height: 375px;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.8rem;
+            flex-direction: column;
         }
-
-        .kec-count {
-            font-weight: 600;
-            color: rgba(0,0,0,0.6);
-        }
-
-        .kec-percent {
-            font-weight: 800;
-            padding: 1px 6px;
-            border-radius: 4px;
-            background: rgba(255,255,255,0.4);
-            font-size: 0.8rem;
-        }
-
-        /* Warna Latar Belakang GRADASI (UPDATED) */
-        .bg-kec-high {
-            /* Hijau Segar */
-            background: linear-gradient(135deg, #dcfce7 0%, #86efac 100%);
-            color: #14532d;
-            border-color: #bbf7d0;
-        }
-        .bg-kec-high .kec-percent { color: #14532d; }
-
-        .bg-kec-mid {
-            /* Kuning Hangat */
-            background: linear-gradient(135deg, #fef3c7 0%, #fcd34d 100%);
-            color: #78350f;
-            border-color: #fde68a;
-        }
-        .bg-kec-mid .kec-percent { color: #78350f; }
-
-        .bg-kec-low {
-            /* Merah Soft */
-            background: linear-gradient(135deg, #fee2e2 0%, #fca5a5 100%);
-            color: #7f1d1d;
-            border-color: #fecaca;
-        }
-        .bg-kec-low .kec-percent { color: #7f1d1d; }
-        
-        /* Responsive Grid: Jadi 2 kolom di tablet, 1 kolom di HP */
-        @media (max-width: 992px) {
-            .kecamatan-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        @media (max-width: 576px) {
-            .kecamatan-grid {
-                grid-template-columns: repeat(1, 1fr);
-                gap: 10px;
-            }
-            .kecamatan-item {
-                padding: 12px;
-            }
-            .kec-name {
-                font-size: 0.85rem;
-                margin-bottom: 6px;
-            }
-            .kec-stat-row {
-                font-size: 0.85rem;
-            }
-			.kecamatan-item.wrap {
-				flex-direction: column;
-				align-items: flex-start;
-				gap: 4px;
-			}
-
-			.kecamatan-item.wrap .kec-name {
-				white-space: normal;
-				overflow: visible;
-				max-width: 100%;
-			}
-
-			.kecamatan-item.wrap .kec-right {
-				width: 100%;
-				justify-content: space-between;
-			}
-
-        }
-
 
         /* Responsive chart adjustments */
 		@media (max-width: 768px) {
 			#overallChartContainer,
 			#validasiChartContainer,
-			#kecamatanChartContainer {
-				height: 280px;
-				min-height: 280px;
+			#kecamatanTableContainer {
+				height: 275px;
+				min-height: 275px;
 			}
 		}
-
 
 		@media (max-width: 576px) {
 			#overallChartContainer,
 			#validasiChartContainer,
-			#kecamatanChartContainer {
-				height: 250px;
-				min-height: 250px;
+			#kecamatanTableContainer {
+				height: 285px;
+				min-height: 285px;
 			}
 		}
 
+		/* --- Kecamatan Table Section --- */
+		.kecamatan-table-container {
+			flex: 1;
+			overflow: auto;
+			padding: 8px 4px; /* Padding lebih kecil */
+			height: calc(100% - 50px); /* Sesuaikan tinggi */
+			display: flex;
+			flex-direction: column;
+		}
 
+		/* Ensure last item is fully visible on mobile */
+		.kecamatan-table-container::after {
+			content: '';
+			display: block;
+			height: 1px;
+			visibility: hidden;
+		}
+
+		/* GRID BARU: 2 KOLOM */
+		.kecamatan-grid {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr); /* 3 kolom untuk PC */
+			gap: 8px; /* Gap lebih kecil */
+			width: 100%;
+			height: fit-content;
+			margin-bottom: 15px;
+		}
+
+		.kecamatan-item {
+			background: white;
+			border-radius: 10px; /* Radius lebih kecil */
+			padding: 10px; /* Padding lebih kecil */
+			box-shadow: 0 2px 6px rgba(0, 0, 0, 0.07); /* Shadow lebih halus */
+			transition: all 0.2s ease;
+			border: 1px solid transparent;
+			display: flex;
+			flex-direction: column;
+			min-height: 90px; /* Lebih compact */
+			position: relative;
+			overflow: hidden;
+		}
+
+		/* Background color classes for kecamatan-item */
+		.kecamatan-item.bg-high {
+			background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(5, 150, 105, 0.05));
+			border-color: rgba(16, 185, 129, 0.2);
+		}
+
+		.kecamatan-item.bg-medium {
+			background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(217, 119, 6, 0.05));
+			border-color: rgba(245, 158, 11, 0.2);
+		}
+
+		.kecamatan-item.bg-low {
+			background: linear-gradient(135deg, rgba(239, 68, 68, 0.08), rgba(220, 38, 38, 0.05));
+			border-color: rgba(239, 68, 68, 0.2);
+		}
+
+		.kecamatan-item.bg-complete {
+			background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(5, 150, 105, 0.08));
+			border-color: rgba(5, 150, 105, 0.3);
+		}
+
+		.kecamatan-item:hover {
+			transform: translateY(-3px);
+			box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+			border-color: #e5e7eb;
+		}
+
+		/* Layout 2 Kolom di dalam Item */
+		.kecamatan-row {
+			display: flex;
+			justify-content: space-between;
+			align-items: flex-start;
+			width: 100%;
+			margin-bottom: 6px;
+		}
+
+		/* Kolom Kiri: Nama + Angka */
+		.kecamatan-left {
+			flex: 1;
+			min-width: 0; /* Untuk text overflow */
+			padding-right: 5px;
+		}
+
+		.kecamatan-name {
+			font-weight: 700;
+			font-size: 0.85rem;
+			line-height: 1.2;
+			margin-bottom: 3px;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			/* Warna nama akan diatur oleh JavaScript */
+		}
+
+		.kecamatan-count {
+			font-size: 0.8rem;
+			color: #6b7280;
+			font-weight: 500;
+			white-space: nowrap;
+		}
+
+		/* Kolom Kanan: Persentase */
+		.kecamatan-right {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-end;
+			margin-left: 5px;
+		}
+
+		.kecamatan-percent {
+			font-weight: 700;
+			font-size: 0.9rem;
+			padding: 3px 8px;
+			border-radius: 15px;
+			min-width: 50px;
+			text-align: center;
+			color: white;
+			box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+			margin-bottom: 4px;
+		}
+
+		/* Background color based on percentage */
+		.percent-high {
+			background: linear-gradient(135deg, var(--color-high), #035c41);
+		}
+
+		.percent-medium {
+			background: linear-gradient(135deg, var(--color-medium), #d97706);
+		}
+
+		.percent-low {
+			background: linear-gradient(135deg, var(--color-low), #dc2626);
+		}
+
+		.percent-complete {
+			background: linear-gradient(135deg, var(--color-high), var(--color-complete));
+		}
+
+		/* Progress bar FULL LEBAR di bawah */
+		.kecamatan-progress-container {
+			margin-top: 4px;
+			height: 5px;
+			background: rgba(0, 0, 0, 0.08);
+			border-radius: 2.5px;
+			overflow: hidden;
+			width: 100%;
+		}
+
+		.kecamatan-progress-bar {
+			height: 100%;
+			border-radius: 3px;
+			transition: width 1s ease-in-out;
+		}
+
+		/* Responsive kecamatan grid */
+		@media (max-width: 1200px) {
+			.kecamatan-grid {
+				grid-template-columns: repeat(2, 1fr);
+			}
+		}
+
+		/* Responsive kecamatan grid untuk tablet */
+		@media (max-width: 1024px) {
+			.kecamatan-grid {
+				grid-template-columns: repeat(2, 1fr); /* 2 kolom untuk tablet */
+				gap: 7px;
+			}
+			
+			.kecamatan-item {
+				padding: 9px;
+				min-height: 88px;
+			}
+			
+			.kecamatan-name {
+				font-size: 0.83rem;
+			}
+			
+			.kecamatan-percent {
+				font-size: 0.85rem;
+				min-width: 48px;
+				padding: 2px 7px;
+			}
+		}
+
+		@media (max-width: 768px) {
+			.kecamatan-grid {
+				grid-template-columns: repeat(2, 1fr);
+				gap: 6px;
+			}
+			
+			.kecamatan-item {
+				padding: 8px;
+				min-height: 85px;
+			}
+			
+			.kecamatan-name {
+				font-size: 0.8rem;
+				white-space: normal; /* Allow wrapping */
+				line-height: 1.1;
+				max-height: 2.2em; /* Maksimal 2 baris */
+				overflow: hidden;
+				text-overflow: ellipsis;
+				display: -webkit-box;
+				-webkit-line-clamp: 2; /* Limit to 2 lines */
+				-webkit-box-orient: vertical;
+			}
+			
+			.kecamatan-percent {
+				font-size: 0.8rem;
+				min-width: 45px;
+				padding: 2px 6px;
+				margin-bottom: 3px;
+			}
+			
+			.kecamatan-count {
+				font-size: 0.75rem;
+			}
+			
+			.kecamatan-progress-container {
+				height: 4px;
+				margin-top: 3px;
+			}
+		}
+
+		@media (max-width: 576px) {
+			.kecamatan-grid {
+				grid-template-columns: 1fr; /* 1 kolom untuk HP kecil */
+				gap: 6px;
+			}
+			
+			.kecamatan-item {
+				padding: 10px;
+				min-height: 85px;
+			}
+			
+			.kecamatan-name {
+				font-size: 0.85rem;
+				-webkit-line-clamp: 1; /* Hanya 1 baris untuk HP kecil */
+				max-height: 1.3em;
+			}
+			
+			.kecamatan-percent {
+				font-size: 0.85rem;
+				min-width: 50px;
+			}
+			
+			.kecamatan-count {
+				font-size: 0.8rem;
+			}
+		}
+		/* Untuk HP dengan lebar sangat kecil (di bawah 400px) */
+		@media (max-width: 400px) {
+			.kecamatan-item {
+				padding: 8px;
+				min-height: 80px;
+			}
+			
+			.kecamatan-name {
+				font-size: 0.78rem;
+			}
+			
+			.kecamatan-percent {
+				font-size: 0.78rem;
+				min-width: 42px;
+				padding: 2px 5px;
+			}
+			
+			.kecamatan-count {
+				font-size: 0.72rem;
+			}
+		}
         /* --- Table Section --- */
         .table-card {
             background: white;
@@ -819,19 +929,44 @@
         <small class="text-muted">Menghubungkan ke DataBase...</small>
     </div>
 
-    <!-- Header -->
-    <div class="header-section text-center">
-        <div class="container">
-            <h1 class="header-title"><i class="fas fa-satellite-dish me-2"></i>MONITOR TARIK EMIS - PDUM</h1>
-            <p class="header-subtitle">KEMENAG KABUPATEN SUMENEP</p>
-			<span class="badge bg-white text-primary rounded-pill px-2 px-sm-3 py-1 py-sm-2 mt-1 mt-sm-2 shadow-sm" style="font-size: clamp(0.75rem, 2vw, 0.875rem);">
-				<i class="fas fa-clock me-1"></i> 
-				<span class="d-none d-sm-inline">Data di Update</span>
-				<span class="d-inline d-sm-none">Update</span>
-				Tiap Pagi Pukul 06:00 WIB
-			</span>
+<!-- Header -->
+<div class="header-section text-center">
+    <div class="container">
+        <h1 class="header-title">
+            <i class="fas fa-satellite-dish me-2"></i>
+            MONITOR TARIK EMIS - PDUM
+        </h1>
+
+        <p class="header-subtitle">
+            KEMENAG KABUPATEN SUMENEP
+        </p>
+		
+        <!-- CUT OFF & COUNTDOWN -->
+        <div class="mt-3">
+            <div class="fw-bold text-warning" style="letter-spacing:1px;">
+                ⛔ CUT OFF 31 JANUARI 2026 ⛔
+            </div>
+            <div class="fw-bold text-white-50">
+                Sisa Waktu:
+                <span id="countdownCutoff" class="fw-bold text-white">
+                    Menghitung...
+                </span>
+            </div>
+			
+        <!-- Info Update -->
+        <span class="badge bg-white text-primary rounded-pill px-2 px-sm-3 py-1 py-sm-2 mt-1 shadow-sm"
+              style="font-size: clamp(0.75rem, 2vw, 0.875rem);">
+            <i class="fas fa-clock me-1"></i>
+            <span class="d-none d-sm-inline">Data di Update</span>
+            <span class="d-inline d-sm-none">Update</span>
+            Tiap Pagi Pukul 06:00 WIB
+        </span>
+
+
         </div>
     </div>
+</div>
+
 
     <!-- Main Content -->
     <div class="main-container container">
@@ -881,26 +1016,26 @@
 				</div>
 			</div>
 
-			<!-- Progres per Kecamatan (MODIFIED: Table/Grid View) -->
+			<!-- Progres per Kecamatan (Diubah dari Jenjang) -->
 			<div class="col-lg-6 col-md-12">
 				<div class="custom-card">
-					<div class="chart-container" id="kecamatanChartContainer">
+					<div class="chart-container" id="kecamatanTableContainer">
 						<div class="chart-header">
 							<h6 class="chart-title">
-								<i class="fas fa-map-marked-alt me-2 text-primary"></i>
+								<i class="fas fa-map-marker-alt me-2 text-primary"></i>
 								Progres per Kecamatan
+								<span id="completeBadge" class="badge bg-success ms-2 d-none">0</span>
 							</h6>
 							<div class="small text-muted">
 								<i class="fas fa-info-circle me-1"></i>
-								<span id="totalKecamatanText">Total: 0 Kec</span>
+								<span id="totalKecamatanText">Total: 0 Kecamatan</span>
 							</div>
 						</div>
-                        <!-- Wrapper Scrollable -->
-						<div class="chart-wrapper kecamatan-grid-wrapper">
-                            <!-- Grid Container -->
-                            <div id="kecamatanGrid" class="kecamatan-grid">
-							    <!-- Items will be injected by JS -->
-                            </div>
+						<div class="kecamatan-table-container" id="kecamatanTableContent">
+							<!-- Data kecamatan akan diisi oleh JavaScript -->
+							<div class="kecamatan-grid" id="kecamatanGrid">
+								<!-- Items akan ditambahkan di sini -->
+							</div>
 						</div>
 					</div>
 				</div>
@@ -997,6 +1132,35 @@
     <script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap5.min.js"></script>
 
     <script>
+			
+        // ================= CUT OFF =================
+		(function () {
+			const targetDate = new Date("2026-01-31T23:59:59").getTime();
+			const el = document.getElementById("countdownCutoff");
+
+			function updateCountdown() {
+				const now = new Date().getTime();
+				const diff = targetDate - now;
+
+				if (diff <= 0) {
+					el.innerHTML = "<span class='text-danger'>WAKTU HABIS</span>";
+					return;
+				}
+
+				const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+				const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+				const minutes = Math.floor((diff / (1000 * 60)) % 60);
+				const seconds = Math.floor((diff / 1000) % 60);
+
+				el.textContent =
+					`${days} Hari ${hours} Jam ${minutes} Menit ${seconds} Detik`;
+			}
+
+			updateCountdown();
+			setInterval(updateCountdown, 1000);
+		})();
+		
+		
         // ================= CONFIGURATION =================
         const SPREADSHEET_ID = '1zgWxa0CDNx1VDF0Rw1kbJSdjkrVMkzs2dtJDgpBIkPg';
         const SHEET_GID = '0';
@@ -1035,6 +1199,35 @@
             } else {
                 return '<span class="badge-validasi badge-pending"><i class="fas fa-question-circle me-1"></i>BELUM DIVALIDASI</span>';
             }
+        };
+
+		// Fungsi untuk mendapatkan kelas background berdasarkan persentase
+		const getBackgroundClass = (percent) => {
+			if (percent >= 100) return 'bg-complete';
+			if (percent >= 90) return 'bg-high';
+			if (percent >= 70) return 'bg-medium';
+			return 'bg-low';
+		};
+
+        // Fungsi untuk mendapatkan kelas warna berdasarkan persentase
+        const getPercentClass = (percent) => {
+            if (percent >= 100) return 'percent-complete';
+            if (percent >= 90) return 'percent-high';
+            if (percent >= 70) return 'percent-medium';
+            return 'percent-low';
+        };
+
+        // Fungsi untuk mendapatkan warna berdasarkan persentase
+        const getColorForPercent = (percent) => {
+            if (percent >= 100) return '#035c41'; // Hijau gelap
+            if (percent >= 90) return '#10b981';  // Hijau
+            if (percent >= 70) return '#f59e0b';  // Kuning/orange
+            return '#ef4444';                     // Merah
+        };
+
+        // Fungsi untuk mendapatkan warna progress bar
+        const getProgressColor = (percent) => {
+            return getColorForPercent(percent);
         };
 
         // ================= DATA FETCHING =================
@@ -1081,22 +1274,21 @@
 
                 // Calculate statistics
                 const stats = calculateStats(allData);
-                const kecStats = calculateKecamatanStats(allData);
 				const validasiStats = calculateValidasiStats(allData);
-
+                const kecamatanStats = calculateKecamatanStats(allData);
                 
                 // Render all components
                 renderCards(stats.perJenjang);
                 renderOverallChart(stats.sukses, stats.belum);
 				renderValidasiChart(validasiStats.valid, validasiStats.belum);
-                renderKecamatanGrid(kecStats); // RENDER GRID KECAMATAN
-				fixKecamatanOverflow();
-				window.addEventListener('resize', fixKecamatanOverflow);
+                renderKecamatanTable(kecamatanStats);
                 initTable(allData);
                 
                 // Update table info
                 document.getElementById('tableInfo').textContent = 
                     `Menampilkan ${allData.length} madrasah`;
+                document.getElementById('totalKecamatanText').textContent = 
+                    `Total: ${kecamatanStats.length} Kecamatan`;
 
                 // Hide loading
                 document.getElementById('loadingOverlay').style.display = 'none';
@@ -1138,68 +1330,126 @@
             return stats;
         }
 
-        // ================= NEW FUNCTIONS: KECAMATAN STATS & RENDER =================
-        function calculateKecamatanStats(data) {
-            const map = {};
-            data.forEach(d => {
-                const kec = d.alamat ? d.alamat.toUpperCase().trim() : 'LAINNYA';
-                if (!map[kec]) {
-                    map[kec] = { name: kec, total: 0, sukses: 0 };
-                }
-                map[kec].total++;
-                if (d.sukses) map[kec].sukses++;
-            });
-            
-            // Convert to array and sort alphabetically
-            return Object.values(map).sort((a, b) => a.name.localeCompare(b.name));
-        }
-
-        function renderKecamatanGrid(kecStats) {
-            const container = document.getElementById('kecamatanGrid');
-            const totalText = document.getElementById('totalKecamatanText');
-            
-            container.innerHTML = '';
-            totalText.textContent = `Total: ${kecStats.length} Kec`;
-
-            kecStats.forEach(k => {
-                const percent = k.total > 0 ? Math.round((k.sukses / k.total) * 100) : 0;
-                
-                // Determine background color class based on percentage
-                let bgClass = 'bg-kec-low'; // Default red/low
-                if (percent === 100) {
-                    bgClass = 'bg-kec-high'; // Green
-                } else if (percent >= 50) {
-                    bgClass = 'bg-kec-mid'; // Yellow
-                }
-                
-                // FORMAT: Nama | [Angka] dari [Total] - [Persen]%
-                const html = `
-                <div class="kecamatan-item ${bgClass}">
-                    <div class="kec-name" title="${k.name}">${k.name}</div>
-                    <div class="kec-stat-row">
-                        <span class="kec-count">${k.sukses} dari ${k.total} - </span>
-                        <span class="kec-percent">${percent}%</span>
-                    </div>
-                </div>`;
-                
-                container.insertAdjacentHTML('beforeend', html);
-            });
-        }
-        // ===========================================================================
-		function fixKecamatanOverflow() {
-			if (window.innerWidth > 576) return;
-
-			document.querySelectorAll('.kecamatan-item').forEach(item => {
-				const name = item.querySelector('.kec-name');
-				if (!name) return;
-
-				// cek apakah teks terpotong
-				const isTruncated = name.scrollWidth > name.clientWidth;
-
-				item.classList.toggle('wrap', isTruncated);
+		function calculateKecamatanStats(data) {
+			const kecamatanMap = {};
+			
+			// Group data by kecamatan
+			data.forEach(item => {
+				const kecamatan = item.alamat || 'Tidak Diketahui';
+				if (!kecamatanMap[kecamatan]) {
+					kecamatanMap[kecamatan] = {
+						name: kecamatan,
+						total: 0,
+						sukses: 0,
+						belum: 0
+					};
+				}
+				
+				kecamatanMap[kecamatan].total++;
+				if (item.sukses) {
+					kecamatanMap[kecamatan].sukses++;
+				} else {
+					kecamatanMap[kecamatan].belum++;
+				}
 			});
+			
+			// Convert to array and calculate percentages
+			const kecamatanStats = Object.values(kecamatanMap).map(k => {
+				const percent = k.total > 0 ? Math.round((k.sukses / k.total) * 100) : 0;
+				return {
+					...k,
+					percent: percent,
+					percentClass: getPercentClass(percent),
+					progressColor: getProgressColor(percent),
+					nameColor: getColorForPercent(percent),
+					isComplete: percent === 100 // Tambahkan flag untuk kecamatan yang 100%
+				};
+			});
+			
+			// SORTING: Kecamatan 100% di atas, lalu diurutkan berdasarkan nama A-Z
+			kecamatanStats.sort((a, b) => {
+				// Prioritaskan yang 100%
+				if (a.isComplete && !b.isComplete) return -1;
+				if (!a.isComplete && b.isComplete) return 1;
+				
+				// Jika sama-sama 100% atau sama-sama belum 100%, urutkan berdasarkan nama A-Z
+				return a.name.localeCompare(b.name);
+			});
+			
+			return kecamatanStats;
 		}
 
+		function renderKecamatanTable(kecamatanStats) {
+			const container = document.getElementById('kecamatanGrid');
+			container.innerHTML = '';
+			
+			// Hitung jumlah kecamatan yang sudah 100%
+			const completeCount = kecamatanStats.filter(k => k.isComplete).length;
+			
+			const completeBadge = document.getElementById('completeBadge');
+			if (completeBadge) {
+				if (completeCount > 0) {
+					completeBadge.textContent = `${completeCount} Kecamatan 100%`;
+					completeBadge.classList.remove('d-none');
+				} else {
+					completeBadge.classList.add('d-none');
+				}
+			}
+			// Update teks header
+			const headerText = document.querySelector('#kecamatanTableContainer .chart-header .small');
+			if (headerText && headerText.querySelector('#totalKecamatanText')) {
+				headerText.querySelector('#totalKecamatanText').textContent = 
+					`Total: ${kecamatanStats.length} Kecamatan (${completeCount} sudah 100%)`;
+			}
+			
+			kecamatanStats.forEach(kec => {
+				const item = document.createElement('div');
+				
+				const percent = kec.percent || Math.round((kec.sukses / kec.total) * 100);
+				const percentClass = kec.percentClass || getPercentClass(percent);
+				const backgroundClass = kec.isComplete ? 'bg-complete' : getBackgroundClass(percent);
+				const progressColor = kec.progressColor || getProgressColor(percent);
+				const nameColor = kec.nameColor || getColorForPercent(percent);
+				
+				// Tambahkan icon untuk kecamatan yang sudah 100%
+				const completeIcon = kec.isComplete ? 
+					'<i class="fas fa-check-circle me-1" style="font-size: 0.7rem;"></i>' : '';
+				
+				item.className = `kecamatan-item ${backgroundClass}`;
+				
+				item.innerHTML = `
+					<div class="kecamatan-row">
+						<div class="kecamatan-left">
+							<div class="kecamatan-name" style="color: ${nameColor}">
+								${completeIcon}${kec.name}
+							</div>
+							<div class="kecamatan-count">
+								${kec.sukses} dari ${kec.total}
+							</div>
+						</div>
+						<div class="kecamatan-right">
+							<div class="kecamatan-percent ${percentClass}">
+								${percent}%
+							</div>
+						</div>
+					</div>
+					<div class="kecamatan-progress-container">
+						<div class="kecamatan-progress-bar" 
+							 style="width: ${Math.min(percent, 100)}%; background-color: ${progressColor};">
+						</div>
+					</div>
+				`;
+				
+				container.appendChild(item);
+			});
+			
+			setTimeout(() => {
+				const containerElement = document.querySelector('.kecamatan-table-container');
+				if (containerElement) {
+					containerElement.scrollTop = 0;
+				}
+			}, 100);
+		}
         function renderCards(data) {
             const container = document.getElementById('statsCards');
             const config = {
@@ -1329,6 +1579,7 @@
 
 			return { total, valid, belum };
 		}
+		
 		function renderValidasiChart(valid, belum) {
 			const ctx = document.getElementById('validasiChart');
 			const total = valid + belum;
@@ -1354,14 +1605,14 @@
 					responsive: true,
 					maintainAspectRatio: false,
 					cutout: '70%',
-							layout: {
-								padding: {
-									top: 10,
-									bottom: 20,
-									left: 10,
-									right: 10
-								}
-							},
+					layout: {
+						padding: {
+							top: 10,
+							bottom: 20,
+							left: 10,
+							right: 10
+						}
+					},
 					plugins: {
 						legend: {
 							position: 'bottom',
@@ -1376,7 +1627,7 @@
 								label: (ctx) => {
 									const v = ctx.raw;
 									const p = Math.round((v / total) * 100);
-									return ` ${ctx.label}: ${v} (${p}%)`;
+								 return ` ${ctx.label}: ${v} (${p}%)`;
 								}
 							}
 						}
@@ -1537,12 +1788,13 @@
             clearTimeout(resizeTimer);
             resizeTimer = setTimeout(function() {
                 if (overallChart) overallChart.resize();
+                if (validasiChart) validasiChart.resize();
             }, 250);
         });
 
         // Initialize dashboard
         document.addEventListener('DOMContentLoaded', initDashboard);
+
     </script>
 </body>
-</html>
 </html>
