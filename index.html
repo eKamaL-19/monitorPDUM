@@ -217,16 +217,184 @@
 			width: 100% !important;
 			height: 100% !important;
 		}
-        #lembagaChartContainer {
+        #kecamatanChartContainer {
             height: 320px;
             min-height: 320px;
+            overflow: hidden; 
         }
+
+        /* --- STYLES FOR KECAMATAN GRID (UPDATED) --- */
+        .kecamatan-grid-wrapper {
+            overflow-y: auto;
+            height: 100%;
+            padding-right: 5px;
+            /* Scroll smooth */
+            scroll-behavior: smooth;
+        }
+        
+        .kecamatan-grid-wrapper::-webkit-scrollbar {
+            width: 6px;
+        }
+        .kecamatan-grid-wrapper::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        .kecamatan-grid-wrapper::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 4px;
+        }
+        .kecamatan-grid-wrapper::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+
+        .kecamatan-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 Kolom */
+            gap: 8px; /* Jarak antar item sedikit diperlebar */
+            padding-bottom: 40px; /* PENTING: Padding bawah agar scroll tidak mentok */
+        }
+
+		.kecamatan-item {
+			padding: 10px 12px;
+			border-radius: 8px;
+			font-size: 0.8rem;
+			border: 1px solid rgba(0,0,0,0.03);
+			display: flex;
+			align-items: center;
+			justify-content: space-between; /* KIRI vs KANAN */
+			gap: 10px;
+			line-height: 1.3;
+		}
+
+        .kec-right {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			white-space: nowrap;
+		}
+
+		.kec-count {
+			font-weight: 600;
+			opacity: 0.85;
+		}
+
+		.kec-percent {
+			font-weight: 800;
+			padding: 2px 8px;
+			border-radius: 6px;
+			font-size: 0.75rem;
+		}
+
+        .kecamatan-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.06);
+            filter: brightness(0.98);
+        }
+
+		.kec-name {
+			font-weight: 800;
+			text-transform: uppercase;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			font-size: 0.8rem;
+			border: none;        /* hilangkan garis bawah */
+			padding: 0;
+			margin: 0;
+		}
+
+
+        .kec-stat-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+        }
+
+        .kec-count {
+            font-weight: 600;
+            color: rgba(0,0,0,0.6);
+        }
+
+        .kec-percent {
+            font-weight: 800;
+            padding: 1px 6px;
+            border-radius: 4px;
+            background: rgba(255,255,255,0.4);
+            font-size: 0.8rem;
+        }
+
+        /* Warna Latar Belakang GRADASI (UPDATED) */
+        .bg-kec-high {
+            /* Hijau Segar */
+            background: linear-gradient(135deg, #dcfce7 0%, #86efac 100%);
+            color: #14532d;
+            border-color: #bbf7d0;
+        }
+        .bg-kec-high .kec-percent { color: #14532d; }
+
+        .bg-kec-mid {
+            /* Kuning Hangat */
+            background: linear-gradient(135deg, #fef3c7 0%, #fcd34d 100%);
+            color: #78350f;
+            border-color: #fde68a;
+        }
+        .bg-kec-mid .kec-percent { color: #78350f; }
+
+        .bg-kec-low {
+            /* Merah Soft */
+            background: linear-gradient(135deg, #fee2e2 0%, #fca5a5 100%);
+            color: #7f1d1d;
+            border-color: #fecaca;
+        }
+        .bg-kec-low .kec-percent { color: #7f1d1d; }
+        
+        /* Responsive Grid: Jadi 2 kolom di tablet, 1 kolom di HP */
+        @media (max-width: 992px) {
+            .kecamatan-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 576px) {
+            .kecamatan-grid {
+                grid-template-columns: repeat(1, 1fr);
+                gap: 10px;
+            }
+            .kecamatan-item {
+                padding: 12px;
+            }
+            .kec-name {
+                font-size: 0.85rem;
+                margin-bottom: 6px;
+            }
+            .kec-stat-row {
+                font-size: 0.85rem;
+            }
+			.kecamatan-item.wrap {
+				flex-direction: column;
+				align-items: flex-start;
+				gap: 4px;
+			}
+
+			.kecamatan-item.wrap .kec-name {
+				white-space: normal;
+				overflow: visible;
+				max-width: 100%;
+			}
+
+			.kecamatan-item.wrap .kec-right {
+				width: 100%;
+				justify-content: space-between;
+			}
+
+        }
+
 
         /* Responsive chart adjustments */
 		@media (max-width: 768px) {
 			#overallChartContainer,
 			#validasiChartContainer,
-			#lembagaChartContainer {
+			#kecamatanChartContainer {
 				height: 280px;
 				min-height: 280px;
 			}
@@ -236,7 +404,7 @@
 		@media (max-width: 576px) {
 			#overallChartContainer,
 			#validasiChartContainer,
-			#lembagaChartContainer {
+			#kecamatanChartContainer {
 				height: 250px;
 				min-height: 250px;
 			}
@@ -692,7 +860,7 @@
 				</div>
 			</div>
 
-			<!-- Progres Validasi (BARU) -->
+			<!-- Progres Validasi -->
 			<div class="col-lg-3 col-md-12">
 				<div class="custom-card">
 					<div class="chart-container" id="validasiChartContainer">
@@ -713,22 +881,26 @@
 				</div>
 			</div>
 
-			<!-- Progres per Jenjang -->
+			<!-- Progres per Kecamatan (MODIFIED: Table/Grid View) -->
 			<div class="col-lg-6 col-md-12">
 				<div class="custom-card">
-					<div class="chart-container" id="lembagaChartContainer">
+					<div class="chart-container" id="kecamatanChartContainer">
 						<div class="chart-header">
 							<h6 class="chart-title">
-								<i class="fas fa-chart-bar me-2 text-primary"></i>
-								Progres per Jenjang
+								<i class="fas fa-map-marked-alt me-2 text-primary"></i>
+								Progres per Kecamatan
 							</h6>
 							<div class="small text-muted">
 								<i class="fas fa-info-circle me-1"></i>
-								<span id="totalLembagaText">Total: 0 Lembaga</span>
+								<span id="totalKecamatanText">Total: 0 Kec</span>
 							</div>
 						</div>
-						<div class="chart-wrapper">
-							<canvas id="lembagaChart"></canvas>
+                        <!-- Wrapper Scrollable -->
+						<div class="chart-wrapper kecamatan-grid-wrapper">
+                            <!-- Grid Container -->
+                            <div id="kecamatanGrid" class="kecamatan-grid">
+							    <!-- Items will be injected by JS -->
+                            </div>
 						</div>
 					</div>
 				</div>
@@ -803,7 +975,7 @@
 
     <!-- Footer -->
     <div class="footer">
-        &copy; By: KamaLeka_19 - Dashboard Monitoring PDUM
+        &copy; By: KamaLeka_19 - Dashboard Monitoring EMIS PDUM
     </div>
 
     <!-- Scripts -->
@@ -835,7 +1007,6 @@
         // Global Vars
         let dataTable = null;
         let overallChart = null;
-        let lembagaChart = null;
 		let validasiChart = null;
         let allData = [];
 
@@ -910,6 +1081,7 @@
 
                 // Calculate statistics
                 const stats = calculateStats(allData);
+                const kecStats = calculateKecamatanStats(allData);
 				const validasiStats = calculateValidasiStats(allData);
 
                 
@@ -917,14 +1089,14 @@
                 renderCards(stats.perJenjang);
                 renderOverallChart(stats.sukses, stats.belum);
 				renderValidasiChart(validasiStats.valid, validasiStats.belum);
-                renderLembagaChart(stats.perJenjang);
+                renderKecamatanGrid(kecStats); // RENDER GRID KECAMATAN
+				fixKecamatanOverflow();
+				window.addEventListener('resize', fixKecamatanOverflow);
                 initTable(allData);
                 
                 // Update table info
                 document.getElementById('tableInfo').textContent = 
                     `Menampilkan ${allData.length} madrasah`;
-                document.getElementById('totalLembagaText').textContent = 
-                    `Total: ${allData.length} Lembaga`;
 
                 // Hide loading
                 document.getElementById('loadingOverlay').style.display = 'none';
@@ -965,6 +1137,68 @@
             
             return stats;
         }
+
+        // ================= NEW FUNCTIONS: KECAMATAN STATS & RENDER =================
+        function calculateKecamatanStats(data) {
+            const map = {};
+            data.forEach(d => {
+                const kec = d.alamat ? d.alamat.toUpperCase().trim() : 'LAINNYA';
+                if (!map[kec]) {
+                    map[kec] = { name: kec, total: 0, sukses: 0 };
+                }
+                map[kec].total++;
+                if (d.sukses) map[kec].sukses++;
+            });
+            
+            // Convert to array and sort alphabetically
+            return Object.values(map).sort((a, b) => a.name.localeCompare(b.name));
+        }
+
+        function renderKecamatanGrid(kecStats) {
+            const container = document.getElementById('kecamatanGrid');
+            const totalText = document.getElementById('totalKecamatanText');
+            
+            container.innerHTML = '';
+            totalText.textContent = `Total: ${kecStats.length} Kec`;
+
+            kecStats.forEach(k => {
+                const percent = k.total > 0 ? Math.round((k.sukses / k.total) * 100) : 0;
+                
+                // Determine background color class based on percentage
+                let bgClass = 'bg-kec-low'; // Default red/low
+                if (percent === 100) {
+                    bgClass = 'bg-kec-high'; // Green
+                } else if (percent >= 50) {
+                    bgClass = 'bg-kec-mid'; // Yellow
+                }
+                
+                // FORMAT: Nama | [Angka] dari [Total] - [Persen]%
+                const html = `
+                <div class="kecamatan-item ${bgClass}">
+                    <div class="kec-name" title="${k.name}">${k.name}</div>
+                    <div class="kec-stat-row">
+                        <span class="kec-count">${k.sukses} dari ${k.total} - </span>
+                        <span class="kec-percent">${percent}%</span>
+                    </div>
+                </div>`;
+                
+                container.insertAdjacentHTML('beforeend', html);
+            });
+        }
+        // ===========================================================================
+		function fixKecamatanOverflow() {
+			if (window.innerWidth > 576) return;
+
+			document.querySelectorAll('.kecamatan-item').forEach(item => {
+				const name = item.querySelector('.kec-name');
+				if (!name) return;
+
+				// cek apakah teks terpotong
+				const isTruncated = name.scrollWidth > name.clientWidth;
+
+				item.classList.toggle('wrap', isTruncated);
+			});
+		}
 
         function renderCards(data) {
             const container = document.getElementById('statsCards');
@@ -1084,111 +1318,6 @@
             });
         }
 
-        function renderLembagaChart(data) {
-            const ctx = document.getElementById('lembagaChart');
-            const jenjangList = ['RA', 'MI', 'MTS', 'MA', 'LAINNYA'];
-            
-            const labels = jenjangList.filter(j => data[j] && data[j].total > 0);
-            const suksesData = labels.map(j => data[j].sukses);
-            const belumData = labels.map(j => data[j].belum);
-            const totalData = labels.map(j => data[j].total);
-
-            // Destroy existing chart
-            if (lembagaChart) lembagaChart.destroy();
-
-            lembagaChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [
-                        {
-                            label: 'Sudah Tarik',
-                            data: suksesData,
-                            backgroundColor: '#10b981',
-                            borderColor: '#10b981',
-                            borderWidth: 1,
-                            borderRadius: 4,
-                            borderSkipped: false,
-                        },
-                        {
-                            label: 'Belum Tarik',
-                            data: belumData,
-                            backgroundColor: '#ef4444',
-                            borderColor: '#ef4444',
-                            borderWidth: 1,
-                            borderRadius: 4,
-                            borderSkipped: false,
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    layout: {
-                        padding: {
-                            top: 10,
-                            bottom: 20,
-                            left: 10,
-                            right: 10
-                        }
-                    },
-                    scales: {
-                        x: {
-                            grid: {
-                                display: false
-                            },
-                            ticks: {
-                                font: {
-                                    family: "'Plus Jakarta Sans', sans-serif",
-                                    size: 11
-                                }
-                            },
-                            stacked: true
-                        },
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                precision: 0,
-                                font: {
-                                    family: "'Plus Jakarta Sans', sans-serif",
-                                    size: 11
-                                }
-                            },
-                            grid: {
-                                color: 'rgba(0, 0, 0, 0.05)'
-                            },
-                            stacked: true
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            position: 'top',
-                            align: 'end',
-                            labels: {
-                                usePointStyle: true,
-                                padding: 15,
-                                font: {
-                                    family: "'Plus Jakarta Sans', sans-serif",
-                                    size: 12
-                                }
-                            }
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    const dataset = context.dataset;
-                                    const value = context.raw;
-                                    const label = dataset.label;
-                                    const total = totalData[context.dataIndex];
-                                    const percentage = Math.round((value / total) * 100);
-                                    return ` ${label}: ${value} (${percentage}%)`;
-                                }
-                            }
-                        }
-                    }
-                }
-            });
-        }
 		function calculateValidasiStats(data) {
 			const total = data.length;
 			const valid = data.filter(d => {
@@ -1408,7 +1537,6 @@
             clearTimeout(resizeTimer);
             resizeTimer = setTimeout(function() {
                 if (overallChart) overallChart.resize();
-                if (lembagaChart) lembagaChart.resize();
             }, 250);
         });
 
@@ -1416,4 +1544,5 @@
         document.addEventListener('DOMContentLoaded', initDashboard);
     </script>
 </body>
+</html>
 </html>
