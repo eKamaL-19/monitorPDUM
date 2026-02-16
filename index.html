@@ -917,6 +917,131 @@
             margin-right: auto;
             margin-left: auto;
         }
+		/* ============================= */
+		/* MODERN GRADIENT FILTER STYLE */
+		/* ============================= */
+
+		.modern-filter {
+			background: linear-gradient(135deg, #ffffff, #f3f4ff);
+			border-radius: 20px;
+			padding: 2rem;
+			border: 1px solid rgba(79,70,229,0.08);
+			box-shadow: 0 20px 40px rgba(79,70,229,0.08);
+			position: relative;
+			overflow: hidden;
+		}
+
+		/* subtle gradient overlay */
+		.modern-filter::before {
+			content: '';
+			position: absolute;
+			top: -80px;
+			right: -80px;
+			width: 200px;
+			height: 200px;
+			background: radial-gradient(circle, rgba(79,70,229,0.15), transparent 70%);
+			border-radius: 50%;
+		}
+
+		.modern-label {
+			font-size: 0.75rem;
+			font-weight: 700;
+			text-transform: uppercase;
+			letter-spacing: 0.08em;
+			color: #6b7280;
+			margin-bottom: 0.6rem;
+			display: block;
+		}
+
+		.modern-input {
+			position: relative;
+		}
+
+		.modern-input i {
+			position: absolute;
+			top: 50%;
+			left: 14px;
+			transform: translateY(-50%);
+			color: #6366f1;
+			font-size: 0.9rem;
+			pointer-events: none;
+		}
+
+		.modern-select {
+			width: 100%;
+			height: 50px;
+			padding: 0 1rem 0 40px;
+			border-radius: 14px;
+			border: 1px solid #e5e7eb;
+			background: white;
+			font-weight: 500;
+			transition: all 0.25s ease;
+			box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+		}
+
+		.modern-select:hover {
+			border-color: #6366f1;
+		}
+
+		.modern-select:focus {
+			border-color: #4f46e5;
+			box-shadow: 0 0 0 4px rgba(79,70,229,0.15);
+			outline: none;
+		}
+
+		/* RESET BUTTON */
+
+		.modern-reset {
+			background: linear-gradient(135deg, #ef4444, #dc2626);
+			color: white;
+			height: 50px;
+			padding: 0 28px;
+			border-radius: 14px;
+			font-weight: 600;
+			border: none;
+			box-shadow: 0 10px 25px rgba(239,68,68,0.3);
+			transition: all 0.25s ease;
+		}
+
+		.modern-reset:hover {
+			transform: translateY(-3px);
+			box-shadow: 0 16px 35px rgba(239,68,68,0.4);
+		}
+		/* =========================== */
+		/* ONE ROW FILTER LAYOUT */
+		/* =========================== */
+
+		.one-row-filter .filter-row {
+			display: flex;
+			gap: 18px;
+			align-items: flex-end;
+			flex-wrap: nowrap;
+		}
+
+		.filter-item {
+			flex: 1;
+			min-width: 0;
+		}
+
+		.filter-button {
+			flex: 0 0 180px;
+		}
+
+		.invisible-label {
+			visibility: hidden;
+		}
+
+		/* Responsive fallback */
+		@media (max-width: 1200px) {
+			.one-row-filter .filter-row {
+				flex-wrap: wrap;
+			}
+
+			.filter-button {
+				flex: 1 1 100%;
+			}
+		}
+
     </style>
 </head>
 
@@ -1096,36 +1221,64 @@
             </div>
 
             <!-- Custom Filters -->
-            <div class="filter-box">
-                <div class="row g-3 align-items-end">
-                    <div class="col-md-3 col-12">
-                        <label class="form-label small fw-bold text-uppercase text-muted">Jenjang</label>
-                        <select id="filterJenjang" class="form-select border-0 shadow-sm">
-                            <option value="">Semua Jenjang</option>
-                        </select>
-                    </div>
+			<div class="filter-box modern-filter one-row-filter">
+				<div class="filter-row">
 
-                    <div class="col-md-3 col-12">
-                        <label class="form-label small fw-bold text-uppercase text-muted">Status</label>
-                        <select id="filterStatus" class="form-select border-0 shadow-sm">
-                            <option value="">Semua Status</option>
-                            <option value="SUKSES">Sudah Tarik</option>
-                            <option value="BELUM">Belum Tarik</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3 col-12">
-                        <label class="form-label small fw-bold text-uppercase text-muted">Alamat</label>
-                        <select id="filterAlamat" class="form-select border-0 shadow-sm">
-                            <option value="">Semua Alamat</option>
-                        </select>
-                    </div>                    
-					<div class="col-md-3 col-12">
-                        <button id="resetFilters" class="btn btn-danger w-100 shadow-sm text-white">
-                            <i class="fas fa-sync-alt me-2"></i>Reset Filter
-                        </button>
-                    </div>
-                </div>
-            </div>
+					<div class="filter-item">
+						<label class="modern-label">Jenjang</label>
+						<div class="modern-input">
+							<i class="fas fa-layer-group"></i>
+							<select id="filterJenjang" class="modern-select">
+								<option value="">Semua Jenjang</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="filter-item">
+						<label class="modern-label">Status</label>
+						<div class="modern-input">
+							<i class="fas fa-signal"></i>
+							<select id="filterStatus" class="modern-select">
+								<option value="">Semua Status</option>
+								<option value="SUKSES">Sudah Tarik</option>
+								<option value="BELUM">Belum Tarik</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="filter-item">
+						<label class="modern-label">Alamat</label>
+						<div class="modern-input">
+							<i class="fas fa-map-marker-alt"></i>
+							<select id="filterAlamat" class="modern-select">
+								<option value="">Semua Alamat</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="filter-item">
+						<label class="modern-label">Validasi</label>
+						<div class="modern-input">
+							<i class="fas fa-check-circle"></i>
+							<select id="filterValidasi" class="modern-select">
+								<option value="">Semua Validasi</option>
+								<option value="SUDAH VALIDASI">Sudah Validasi</option>
+								<option value="BELUM VALIDASI">Belum Validasi</option>
+								<option value="PROSES">Proses</option>
+								<option value="TIDAK VALID">Tidak Valid</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="filter-item filter-button">
+						<label class="modern-label invisible-label">Action</label>
+						<button id="resetFilters" class="btn modern-reset w-100">
+							<i class="fas fa-rotate me-2"></i>Reset Filter
+						</button>
+					</div>
+
+				</div>
+			</div>
 
             <div class="table-responsive">
                 <table id="madrasahTable" class="table table-hover align-middle w-100">
@@ -1170,33 +1323,36 @@
 
     <script>
 		// ================= PESAN CUT OFF =================
-		document.addEventListener("DOMContentLoaded", function () {
-			const modalEl = document.getElementById('cutoffModal');
-			const modal = new bootstrap.Modal(modalEl);
-			const progressBar = document.getElementById('cutoffProgress');
+		const SHOW_CUTOFF_MODAL = false; // ubah jadi true kalau mau aktif
+		if (SHOW_CUTOFF_MODAL) {
+			document.addEventListener("DOMContentLoaded", function () {
+				const modalEl = document.getElementById('cutoffModal');
+				const modal = new bootstrap.Modal(modalEl);
+				const progressBar = document.getElementById('cutoffProgress');
 
-			const duration = 5000; // 5 detik
-			const intervalTime = 50;
-			let elapsed = 0;
+				const duration = 5000;
+				const intervalTime = 50;
+				let elapsed = 0;
 
-			modal.show();
+				modal.show();
 
-			const interval = setInterval(() => {
-			  elapsed += intervalTime;
-			  const percent = Math.max(0, 100 - (elapsed / duration) * 100);
-			  progressBar.style.width = percent + '%';
+				const interval = setInterval(() => {
+					elapsed += intervalTime;
+					const percent = Math.max(0, 100 - (elapsed / duration) * 100);
+					progressBar.style.width = percent + '%';
 
-			  if (elapsed >= duration) {
-				clearInterval(interval);
-				modal.hide();
-			  }
-			}, intervalTime);
+					if (elapsed >= duration) {
+						clearInterval(interval);
+						modal.hide();
+					}
+				}, intervalTime);
 
-			// Jika user menutup manual
-			modalEl.addEventListener('hidden.bs.modal', () => {
-			  clearInterval(interval);
+				modalEl.addEventListener('hidden.bs.modal', () => {
+					clearInterval(interval);
+				});
 			});
-		});
+		}
+
 		(function () {
 			const targetDate = new Date("2026-01-31T23:59:59").getTime();
 			const el = document.getElementById("countdownCutoff");
@@ -1249,20 +1405,68 @@
             return map[code] || 'LAINNYA';
         };
         const isSukses = (status) => cleanStr(status).toLowerCase().includes('sudah');
+
+		// ================= VALIDASI ENGINE =================
+		const VALIDASI_STATUS = [
+			{
+				keywords: ['sudah divalidasi kabko'],
+				label: 'SUDAH VALIDASI',
+				badgeClass: 'badge-valid',
+				icon: 'fa-check-circle'
+			},
+			{
+				keywords: ['belum validasi'],
+				label: 'BELUM VALIDASI',
+				badgeClass: 'badge-invalid',
+				icon: 'fa-times-circle'
+			},
+			{
+				keywords: ['proses pengajuan'],
+				label: 'PROSES',
+				badgeClass: 'badge-pending',
+				icon: 'fa-clock'
+			},
+			{
+				keywords: ['#n/a', '', '-'],
+				label: 'TIDAK VALID',
+				badgeClass: 'badge-invalid',
+				icon: 'fa-times-circle'
+			}
+		];
+
+		const normalizeValidasi = (value) => {
+			return cleanStr(value)
+				.toLowerCase()
+				.replace(/\s+/g, ' ')
+				.trim();
+		};
+
+
+		const resolveValidasiStatus = (value) => {
+			const val = normalizeValidasi(value);
+
+			for (const status of VALIDASI_STATUS) {
+				if (status.keywords.includes(val)) {
+					return status;
+				}
+			}
+
+			return VALIDASI_STATUS.find(s => s.label === 'TIDAK VALID');
+		};
+
         
         // Fungsi untuk menentukan warna badge validasi
-        const getValidasiBadge = (validasi) => {
-            const val = cleanStr(validasi).toLowerCase();
-            if (val.includes('valid') || val.includes('benar') || val.includes('ok')) {
-                return '<span class="badge-validasi badge-valid"><i class="fas fa-check-circle me-1"></i>SUDAH VALIDASI</span>';
-            } else if (val.includes('tidak') || val.includes('salah') || val.includes('invalid')) {
-                return '<span class="badge-validasi badge-invalid"><i class="fas fa-times-circle me-1"></i>TIDAK VALID</span>';
-            } else if (val.includes('proses') || val.includes('pending') || val.includes('menunggu')) {
-                return '<span class="badge-validasi badge-pending"><i class="fas fa-clock me-1"></i>PROSES</span>';
-            } else {
-                return '<span class="badge-validasi badge-pending"><i class="fas fa-question-circle me-1"></i>BELUM DIVALIDASI</span>';
-            }
-        };
+		const getValidasiBadge = (validasi) => {
+			const status = resolveValidasiStatus(validasi);
+
+			return `
+				<span class="badge-validasi ${status.badgeClass}">
+					<i class="fas ${status.icon} me-1"></i>${status.label}
+				</span>
+			`;
+		};
+
+
 
 		// Fungsi untuk mendapatkan kelas background berdasarkan persentase
 		const getBackgroundClass = (percent) => {
@@ -1343,7 +1547,7 @@
                 // Render all components
                 renderCards(stats.perJenjang);
                 renderOverallChart(stats.sukses, stats.belum);
-				renderValidasiChart(validasiStats.valid, validasiStats.belum);
+				renderValidasiChart(validasiStats);
                 renderKecamatanTable(kecamatanStats);
                 initTable(allData);
                 
@@ -1646,27 +1850,41 @@
 			}, 100);
 		}
 
-		function renderValidasiChart(valid, belum) {
+		function renderValidasiChart(stats) {
 			const ctx = document.getElementById('validasiChart');
-			const total = valid + belum;
-			const pct = total > 0 ? Math.round((valid / total) * 100) : 0;
 
-			// Update text dengan animasi
+			const total = stats.SUDAH + stats.BELUM + stats.PROSES + stats.TIDAK_VALID;
+
+			const pct = total > 0 
+				? Math.round((stats.SUDAH / total) * 100) 
+				: 0;
+
 			animateValue('validasiPercent', 0, pct, 1500);
 
 			if (validasiChart) validasiChart.destroy();
 
-			// Data awal untuk animasi (0, total)
-			const initialData = [0, total];
-			const finalData = [valid, belum];
-
 			validasiChart = new Chart(ctx, {
 				type: 'doughnut',
 				data: {
-					labels: ['Sudah Validasi', 'Belum / Proses'],
+					labels: [
+						'Sudah',
+						'Belum',
+						'Proses',
+						'Tidak Valid'
+					],
 					datasets: [{
-						data: initialData, // Mulai dari 0
-						backgroundColor: ['#3b82f6', '#f59e0b'],
+						data: [
+							stats.SUDAH,
+							stats.BELUM,
+							stats.PROSES,
+							stats.TIDAK_VALID
+						],
+						backgroundColor: [
+							'#10b981',  // hijau
+							'#ef4444',  // merah
+							'#f59e0b',  // kuning
+							'#6b7280'   // abu
+						],
 						borderWidth: 0,
 						hoverOffset: 10,
 						borderRadius: 8
@@ -1685,38 +1903,29 @@
 						}
 					},
 					plugins: {
-						legend: {
+						legend: { 
 							position: 'bottom',
-							labels: {
+							align: 'center',
+							labels: { 
 								usePointStyle: true,
 								padding: 20,
-								font: { size: 12 }
+								font: { 
+									family: "'Plus Jakarta Sans', sans-serif", 
+									size: 12 
+								},
+								boxWidth: 10,
+								boxHeight: 10
 							}
 						},
-						tooltip: {
-							callbacks: {
-								label: (ctx) => {
-									const v = ctx.raw;
-									const p = Math.round((v / total) * 100);
-								 return ` ${ctx.label}: ${v} (${p}%)`;
-								}
-							}
-						}
 					},
-					// Animasi chart
 					animation: {
 						duration: 1500,
 						easing: 'easeOutQuart'
 					}
 				}
 			});
-
-			// Animasi chart dari 0 ke nilai sebenarnya
-			setTimeout(() => {
-				validasiChart.data.datasets[0].data = finalData;
-				validasiChart.update();
-			}, 100);
 		}
+
 
 		// Fungsi helper untuk animasi angka
 		function animateValue(elementId, start, end, duration) {
@@ -1736,19 +1945,37 @@
 			};
 			window.requestAnimationFrame(step);
 		}
-		function calculateValidasiStats(data) {
-			const total = data.length;
-			const valid = data.filter(d => {
-				const v = d.validasi.toLowerCase();
-				return v.includes('valid') || v.includes('benar') || v.includes('ok');
-			}).length;
-
-			const belum = total - valid;
-
-			return { total, valid, belum };
-		}
 		
-        function initTable(data) {
+		function calculateValidasiStats(data) {
+			const stats = {
+				SUDAH: 0,
+				BELUM: 0,
+				PROSES: 0,
+				TIDAK_VALID: 0
+			};
+
+			data.forEach(d => {
+				const status = resolveValidasiStatus(d.validasi);
+
+				switch (status.label) {
+					case 'SUDAH VALIDASI':
+						stats.SUDAH++;
+						break;
+					case 'BELUM VALIDASI':
+						stats.BELUM++;
+						break;
+					case 'PROSES':
+						stats.PROSES++;
+						break;
+					default:
+						stats.TIDAK_VALID++;
+				}
+			});
+
+			return stats;
+		}
+
+		function initTable(data) {
             const tbody = document.querySelector('#madrasahTable tbody');
             
             // Populate Dropdown Jenjang
@@ -1852,7 +2079,8 @@
                 const fJenjang = $('#filterJenjang').val();
                 const fAlamat = $('#filterAlamat').val();
                 const fStatus = $('#filterStatus').val();
-                
+				const fValidasi = $('#filterValidasi').val();
+
                 // Get the row node
                 const rowNode = dataTable.row(dataIndex).node();
                 if (!rowNode) return true;
@@ -1867,11 +2095,15 @@
                 if (fJenjang && rowJenjang !== fJenjang) return false;
                 if (fAlamat && rowAlamat !== fAlamat) return false;
                 if (fStatus && statusCheck !== fStatus) return false;
+				if (fValidasi) {
+					const validasiCell = $(rowNode).find('td:nth-child(6)').text().trim();
+					if (validasiCell !== fValidasi) return false;
+				}
                 return true;
             });
 
             // Event Listeners
-            $('#filterJenjang, #filterAlamat, #filterStatus').on('change', function() {
+            $('#filterJenjang, #filterAlamat, #filterStatus, #filterValidasi').on('change', function() {
                 dataTable.draw();
                 updateTableInfo();
             });
@@ -1880,6 +2112,7 @@
                 $('#filterJenjang').val('');
                 $('#filterAlamat').val('');
                 $('#filterStatus').val('');
+				$('#filterValidasi').val('');
                 dataTable.search('').draw();
                 updateTableInfo();
             });
